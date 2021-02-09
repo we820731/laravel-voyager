@@ -1515,10 +1515,6 @@ General Styles - Owlcarousel
   margin: 0;
 }
 
-.footer .footer-social-links {
-  text-align: left;
-}
-
 .footer .footer-social-links a {
   font-size: 18px;
   display: inline-block;
