@@ -24,7 +24,7 @@ class Article extends Model
     protected $translatable = ['title', 'seo_title', 'content_small', 'content', 'slug', 'meta_description', 'meta_keywords'];
 
     protected $guarded = [];
-    protected $table = 'posts';
+    protected $table = 'articles';
     public function save(array $options = [])
     {
         // If no author has been assigned, assign the current user's id as the author of the post
@@ -54,13 +54,12 @@ class Article extends Model
         return $this->hasMany('App\Models\Comment');
     }
 
-    public function cgy()
+    public function Category()
     {
-        return $this->belongsTo('App\Models\Cgy');
+        return $this->belongsTo('App\Models\Category');
     }
 
     public function user(){
-        //return $this->belongsTo('App\User');
         return $this->belongsTo('App\Models\User', 'author_id', 'id');
     }
 
@@ -158,12 +157,12 @@ class Article extends Model
      * 限制查詢只包括某種文件分類的元素。
      *
      * @return \Illuminate\Database\Eloquent\Builder
-     * @param cgy 文件分類
+     * @param Category 文件分類
      */
-    public function scopeCgy( $query , $cgy )
+    public function scopeCategory( $query , $Category )
     {
-        if ($cgy != 'none') {
-            return $query->where('cgy_id',$cgy );
+        if ($Category != 'none') {
+            return $query->where('Category_id',$Category );
         }else{
             return $query;
         }
@@ -185,7 +184,7 @@ class Article extends Model
      * 限制查詢只包括某種文件標籤的元素。
      *
      * @return \Illuminate\Database\Eloquent\Builder
-     * @param cgy 文件分類
+     * @param Category 文件分類
      */
     public function scopeTag( $query , $tagName )
     {

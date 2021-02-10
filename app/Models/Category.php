@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Cgy extends Model
+class Category extends Model
 {
     use HasFactory;
 
-    protected  $table = "cgys";
+    protected  $table = "categories";
 
     protected $guarded = [];
 
     public function parent(){
-        return $this->belongsTo(Cgy::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function articles()
@@ -23,7 +23,7 @@ class Cgy extends Model
     }
 
     public function hasChilds(){
-        $childs = Cgy::where('parent_id',$this->id)->get();
+        $childs = Category::where('parent_id',$this->id)->get();
         if (count($childs) > 0){
             return true;
         }else{
@@ -40,10 +40,10 @@ class Cgy extends Model
     }
 
     //透過分類Id來尋找屬於該分類的子分類
-    public function scopeParentCgy( $query , $cgy_id )
+    public function scopeParentCategory( $query , $Category_id )
     {
-        if ($cgy_id != 'none') {
-            return $query->where('parent_id', $cgy_id);
+        if ($Category_id != 'none') {
+            return $query->where('parent_id', $Category_id);
         }else{
             return $query;
         }
